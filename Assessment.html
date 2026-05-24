@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="אוסף סרטונים אצור על אתגר ההערכה האקדמית בעידן הבינה המלאכותית — מסע קצר בין ארבעה קולות מובילים, לקראת סדנת מרצים ב-HIT." />
+<meta property="og:title" content="הערכה בעידן ה-AI · ארבעה קולות, ארבע זוויות" />
+<meta property="og:description" content="ארבעה סרטונים. ארבע פרספקטיבות. שיחה אחת שלא נוכל לדחות יותר." />
+<title>הערכה בעידן ה-AI · ארבעה קולות, ארבע זוויות</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- Reset & base ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #F2EDE3;
+    --bg-deep:   #E8E0D2;
+    --ink:       #1C1815;
+    --ink-soft:  #3A332E;
+    --muted:     #7A746C;
+    --accent:    #A8442C;
+    --accent-d:  #872E1D;
+    --paper:     #FBF8F1;
+    --line:      #D8CFBE;
+    --serif:     'Frank Ruhl Libre', 'Times New Roman', serif;
+    --sans:      'Assistant', 'Helvetica Neue', sans-serif;
+    --latin:     'Fraunces', Georgia, serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* paper grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image:
+      radial-gradient(rgba(60,40,20,0.08) 1px, transparent 1px),
+      radial-gradient(rgba(60,40,20,0.05) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 1px;
+  }
+
+  /* ---------- Typography ---------- */
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .latin { font-family: var(--latin); font-feature-settings: "ss01" 1; }
+
+  /* ---------- Layout shell ---------- */
+  .shell { max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    z-index: 50;
+    background: rgba(242, 237, 227, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px clamp(20px, 4vw, 64px);
+    font-size: 14px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+  .brand-mark {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translateY(-2px);
+  }
+  .brand-sub {
+    color: var(--muted);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .topbar-meta {
+    color: var(--muted);
+    font-family: var(--latin);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Side rail (progress dots) ---------- */
+  .rail {
+    position: fixed;
+    top: 50%;
+    left: 24px;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .rail a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: var(--latin);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+    transition: opacity .3s, color .3s;
+  }
+  .rail a::before {
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: currentColor;
+    transition: width .3s, background .3s;
+  }
+  .rail a:hover, .rail a.active {
+    opacity: 1;
+    color: var(--accent);
+  }
+  .rail a.active::before { width: 32px; background: var(--accent); }
+  @media (max-width: 1100px) { .rail { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 160px 0 100px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: var(--latin);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 92px);
+    line-height: 1.02;
+    font-weight: 900;
+    max-width: 14ch;
+    margin-bottom: 36px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-family: var(--latin);
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .hero-lede {
+    max-width: 58ch;
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    max-width: 900px;
+  }
+  .hero-meta div { display: flex; flex-direction: column; gap: 6px; }
+  .hero-meta dt {
+    font-family: var(--latin);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-meta dd {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .scroll-cue {
+    margin-top: 80px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: var(--latin);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .scroll-cue .arrow {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--muted);
+    border-radius: 50%;
+    position: relative;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  .scroll-cue .arrow::after {
+    content: "↓";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    line-height: 1;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  /* ---------- Section base ---------- */
+  section.video-section {
+    padding: 120px 0;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  section.video-section:nth-child(even) {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  /* video card header */
+  .v-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: start;
+    margin-bottom: 40px;
+  }
+  .v-num {
+    font-family: var(--latin);
+    font-weight: 300;
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 0.85;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    font-feature-settings: "ss01" 1;
+  }
+  .v-meta {
+    padding-top: 14px;
+  }
+  .v-kicker {
+    font-family: var(--latin);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .v-kicker .dot {
+    width: 4px; height: 4px;
+    background: var(--muted);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .v-title {
+    font-size: clamp(28px, 4.2vw, 50px);
+    line-height: 1.08;
+    font-weight: 700;
+    margin-bottom: 14px;
+    max-width: 22ch;
+  }
+  .v-speaker {
+    font-family: var(--latin);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .v-speaker .affil {
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* video embed */
+  .v-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--ink);
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.04),
+      0 20px 40px -20px rgba(60,40,20,0.4),
+      0 40px 80px -30px rgba(60,40,20,0.2);
+    margin-bottom: 16px;
+  }
+  .v-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* Video poster — opens YouTube/PBS in a new tab */
+  .lite-yt {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: var(--ink);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+  }
+  .lite-yt img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease, opacity .3s;
+  }
+  .lite-yt:hover img { transform: scale(1.03); opacity: 0.82; }
+  .lite-yt::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .lite-yt-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--accent);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    transition: transform .3s ease, background .3s;
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.5);
+  }
+  .lite-yt:hover .lite-yt-play {
+    transform: translate(-50%, -50%) scale(1.08);
+    background: var(--accent-d);
+  }
+  .lite-yt-play::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 14px 0 14px 22px;
+    border-color: transparent transparent transparent var(--paper);
+    transform: translateX(3px);
+  }
+  .lite-yt-label {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    z-index: 2;
+    font-family: var(--latin);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    padding: 8px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lite-yt-label .ext {
+    font-size: 13px;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+  .lite-yt-duration {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 2;
+    font-family: var(--latin);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--paper);
+    background: rgba(0,0,0,0.78);
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+
+  /* Fallback link below video */
+  .v-fallback {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: var(--latin);
+    margin-bottom: 48px;
+    padding: 8px 4px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .v-fallback a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+    transition: color .2s;
+  }
+  .v-fallback a:hover { color: var(--accent-d); }
+  .v-fallback .source {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .v-frame.linkout {
+    aspect-ratio: 16 / 9;
+    background:
+      linear-gradient(180deg, rgba(28,24,21,0.55), rgba(28,24,21,0.85)),
+      linear-gradient(135deg, #5a2a1c, #2a1410);
+    color: var(--paper);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform .4s ease;
+  }
+  .v-frame.linkout:hover { transform: translateY(-2px); }
+  .v-frame.linkout .play-content {
+    text-align: center;
+    padding: 32px;
+  }
+  .v-frame.linkout .play-eyebrow {
+    font-family: var(--latin);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(251,248,241,0.7);
+    margin-bottom: 18px;
+  }
+  .v-frame.linkout .play-title {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.4vw, 30px);
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 20px;
+    line-height: 1.2;
+    max-width: 30ch;
+    margin-inline: auto;
+  }
+  .v-frame.linkout .play-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 22px;
+    border: 1px solid rgba(251,248,241,0.6);
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .v-frame.linkout .play-icon svg {
+    transform: scaleX(-1); /* arrow points right→left for RTL */
+  }
+
+  /* body: summary + bottom line */
+  .v-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .v-body { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .v-summary h3 {
+    font-family: var(--latin);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  .v-summary p {
+    font-size: 17.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .v-summary p:last-child { margin-bottom: 0; }
+
+  .v-bottomline {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 36px 32px;
+    position: relative;
+    border-radius: 4px;
+  }
+  .v-bottomline::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+  }
+  .v-bottomline .bl-label {
+    font-family: var(--latin);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .v-bottomline .bl-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .v-bottomline h4 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: none;
+  }
+  .v-bottomline .bl-text {
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.8vw, 22px);
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .v-bottomline .bl-text em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ---------- Synthesis section ---------- */
+  .synthesis {
+    padding: 140px 0 100px;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .synthesis::before {
+    content: "04 + תקציר";
+    position: absolute;
+    top: 40px; left: -10px;
+    font-family: var(--latin);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(251,248,241,0.3);
+    transform: rotate(-90deg);
+    transform-origin: left top;
+  }
+  .synthesis h2 {
+    color: var(--paper);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    max-width: 18ch;
+    margin-bottom: 48px;
+    font-weight: 700;
+  }
+  .synthesis h2 em {
+    font-style: italic;
+    font-family: var(--latin);
+    font-weight: 400;
+    color: #E8A28F;
+  }
+  .synthesis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 40px;
+    margin-bottom: 64px;
+  }
+  .synthesis-card {
+    border-top: 1px solid rgba(251,248,241,0.2);
+    padding-top: 24px;
+  }
+  .synthesis-card .sc-num {
+    font-family: var(--latin);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: #E8A28F;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .synthesis-card .sc-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    color: var(--paper);
+  }
+  .synthesis-card .sc-body {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(251,248,241,0.75);
+  }
+
+  /* ---------- Closing / teaser ---------- */
+  .cta-section {
+    padding: 140px 0 160px;
+    background: var(--bg);
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .cta-section .cta-eyebrow {
+    font-family: var(--latin);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .cta-section h2 {
+    font-size: clamp(34px, 5.5vw, 64px);
+    line-height: 1.1;
+    max-width: 20ch;
+    margin: 0 auto 56px;
+    font-weight: 700;
+  }
+  .cta-section h2 em {
+    font-style: italic;
+    font-family: var(--latin);
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .cta-tease {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--muted);
+  }
+  .cta-tease-line {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background: var(--muted);
+    opacity: 0.5;
+  }
+  .cta-tease-text {
+    font-family: var(--latin);
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+    background: var(--bg-deep);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer .footer-credit {
+    font-family: var(--serif);
+    color: var(--ink-soft);
+  }
+  footer .footer-meta {
+    font-family: var(--latin);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---------- Entry animation ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Responsive tweaks ---------- */
+  @media (max-width: 640px) {
+    .v-head { grid-template-columns: 1fr; gap: 16px; }
+    .v-num { font-size: 78px; }
+    .hero { padding: 130px 0 60px; }
+    section.video-section { padding: 80px 0; }
+    .v-bottomline { padding: 26px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────── TOP BAR ───────── -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      הערכה בעידן ה-AI
+      <span class="brand-sub">· ארבעה קולות, ארבע זוויות</span>
+    </div>
+    <div class="topbar-meta">HIT · M.A. Learning Technologies</div>
+  </div>
+</header>
+
+<!-- ───────── SIDE RAIL ───────── -->
+<nav class="rail" aria-label="ניווט בין הסרטונים">
+  <a href="#intro" data-section="intro">00 · פתיחה</a>
+  <a href="#v1" data-section="v1">01 · Mollick</a>
+  <a href="#v2" data-section="v2">02 · MIT</a>
+  <a href="#v3" data-section="v3">03 · Farrell</a>
+  <a href="#v4" data-section="v4">04 · Teague</a>
+  <a href="#synthesis" data-section="synthesis">— תקציר</a>
+  <a href="#cta" data-section="cta">↓ סקרנים?</a>
+</nav>
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" id="intro">
+  <div class="shell">
+    <div class="hero-eyebrow">קוראים לסגל · אביב 2026</div>
+    <h1>
+      ה<em>הערכה</em> כפי שהכרנו אותה
+      <br/>כבר אינה זמינה.
+    </h1>
+    <p class="hero-lede">
+      בתוך שנתיים, כלי בינה מלאכותית יוצרת הפכו את העבודה שעיצבה את ההוראה האקדמית מאות שנים — המאמר, המבחן בבית, התרגיל הכתוב — למשהו שמכונה יכולה להפיק בשניות. הסרטונים שלפניכם הם ארבעה ניסיונות שונים לחשוב מחדש על מה שאנחנו עושים, ולמה. הם לא מציעים פתרון אחד. הם פותחים שיחה.
+    </p>
+    <dl class="hero-meta">
+      <div>
+        <dt>פורמט</dt>
+        <dd>4 סרטונים · ~15 דקות צפייה ממוקדת</dd>
+      </div>
+      <div>
+        <dt>קהל יעד</dt>
+        <dd>מרצים, ראשי תוכניות, סגל הוראה</dd>
+      </div>
+      <div>
+        <dt>מטרה</dt>
+        <dd>הכנה לסדנה — לא תחליף לה</dd>
+      </div>
+    </dl>
+    <div class="scroll-cue">
+      <span>גללו להתחיל</span>
+      <span class="arrow"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── VIDEO 01 — MOLLICK ───────── -->
+<section class="video-section" id="v1">
+  <div class="shell">
+    <div class="v-head">
+      <div class="v-num">01</div>
+      <div class="v-meta">
+        <div class="v-kicker">
+          <span>The Wharton School</span>
+          <span class="dot"></span>
+          <span>AI in Focus Series</span>
+          <span class="dot"></span>
+          <span>~30 דקות</span>
+        </div>
+        <h2 class="v-title">איך AI משפיע על החינוך?</h2>
+        <div class="v-speaker">
+          Ethan Mollick <span class="affil">· פרופ' חבר באוניברסיטת פנסילבניה, מחבר Co-Intelligence</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-frame">
+      <a class="lite-yt" href="https://www.youtube.com/watch?v=WFDB7ALKfT8" target="_blank" rel="noopener noreferrer" aria-label="צפו בסרטון של Mollick ב-YouTube (נפתח בלשונית חדשה)">
+        <img src="https://i.ytimg.com/vi/WFDB7ALKfT8/maxresdefault.jpg" alt="How Does AI Impact Education? – Wharton Professor Ethan Mollick" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/WFDB7ALKfT8/hqdefault.jpg'">
+        <span class="lite-yt-play" aria-hidden="true"></span>
+        <span class="lite-yt-label">YouTube · Knowledge at Wharton <span class="ext">↗</span></span>
+        <span class="lite-yt-duration">27:59</span>
+      </a>
+    </div>
+    <div class="v-fallback">
+      <span class="source">לחיצה על הפוסטר תפתח את הסרטון ב-YouTube בלשונית חדשה</span>
+      <a href="https://www.youtube.com/watch?v=WFDB7ALKfT8" target="_blank" rel="noopener noreferrer">פתחו עכשיו ↗</a>
+    </div>
+
+    <div class="v-body">
+      <div class="v-summary">
+        <h3>תקציר</h3>
+        <p>
+          Ethan Mollick — שכונה על-ידי <span class="latin">TIME</span> בשנת 2024 כאחד מ-100 האנשים המשפיעים ביותר בעולם הבינה המלאכותית — משוחח עם Eric Bradlow, סגן הדיקן לאנליטיקה ב-Wharton, על מה שקרה למודלים הפדגוגיים שלנו מאז נובמבר 2022. הוא לא מנסה להרגיע. הוא ממסגר את המצב כסוג של "תקופת מעבר" שבה הסטודנטים כבר נמצאים בעתיד, והאקדמיה עדיין מהססת בהווה.
+        </p>
+        <p>
+          הדגש של Mollick הוא פדגוגי-מעשי: לא <em>אם</em> להשתמש, אלא <em>איך</em>. הוא מציג את ה-AI כ"עמית עבודה" (co-intelligence) — לא כיריב ולא כעוזר טהור — ומפרט מה זה אומר עבור עיצוב מטלות, משוב, וההגדרה המחודשת של "תוצר מקורי" של סטודנט.
+        </p>
+      </div>
+      <aside class="v-bottomline">
+        <div class="bl-label">שורה תחתונה</div>
+        <h4>השפעת AI על הערכה אקדמית</h4>
+        <p class="bl-text">
+          המאמץ <em>לתפוס</em> סטודנטים שמשתמשים ב-AI הוא קרב הפסד. המאמץ הראוי הוא לעצב מחדש את ההערכה כך שתשקף שיתוף-פעולה אנושי-מכונה — כי זה בדיוק מה שיחכה לבוגרים בעולם העבודה.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── VIDEO 02 — MIT ALEMAN ───────── -->
+<section class="video-section" id="v2">
+  <div class="shell">
+    <div class="v-head">
+      <div class="v-num">02</div>
+      <div class="v-meta">
+        <div class="v-kicker">
+          <span>MIT Teaching + Learning Lab</span>
+          <span class="dot"></span>
+          <span>אפריל 2026</span>
+          <span class="dot"></span>
+          <span>~50 דקות</span>
+        </div>
+        <h2 class="v-title">ניווט הוראה והערכה בעידן ה-GenAI</h2>
+        <div class="v-speaker">
+          Dr. Lourdes Alemán <span class="affil">· מנהלת משותפת, מעבדת ההוראה והלמידה של MIT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-frame">
+      <a class="lite-yt" href="https://www.youtube.com/watch?v=514jG3jEnRA" target="_blank" rel="noopener noreferrer" aria-label="צפו בהרצאה של MIT ב-YouTube (נפתח בלשונית חדשה)">
+        <img src="https://i.ytimg.com/vi/514jG3jEnRA/maxresdefault.jpg" alt="AI in Education: Navigating Teaching and Assessing Student Learning" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/514jG3jEnRA/hqdefault.jpg'">
+        <span class="lite-yt-play" aria-hidden="true"></span>
+        <span class="lite-yt-label">YouTube · MIT Schwarzman College <span class="ext">↗</span></span>
+        <span class="lite-yt-duration">1:00:06</span>
+      </a>
+    </div>
+    <div class="v-fallback">
+      <span class="source">לחיצה על הפוסטר תפתח את הסרטון ב-YouTube בלשונית חדשה</span>
+      <a href="https://www.youtube.com/watch?v=514jG3jEnRA" target="_blank" rel="noopener noreferrer">פתחו עכשיו ↗</a>
+    </div>
+
+    <div class="v-body">
+      <div class="v-summary">
+        <h3>תקציר</h3>
+        <p>
+          הרצאה עדכנית במיוחד, ממוסד שמהווה אמת-מידה גלובלית להוראה איכותית. Alemán מציעה מסגרת מעשית להערכה בעידן שבו תוצר סופי — חיבור, דוח, פתרון — מאבד את היכולת לשמש כעדות אמינה ללמידה. במקום זאת היא מציעה להעריך את <em>המסע</em>: שלבי ביניים, החלטות, תיקונים, שיחות עם הכלי, ושיקופים על השימוש בו.
+        </p>
+        <p>
+          המסר המרכזי מנותק מהיסטריה: ה-MIT לא מבטל את ה-AI, לא חוסם אותו, ולא מתעלם ממנו. הוא בונה <em>סביבת הערכה חדשה</em> — שמדידה בה היא רב-נקודתית ולא חד-פעמית.
+        </p>
+      </div>
+      <aside class="v-bottomline">
+        <div class="bl-label">שורה תחתונה</div>
+        <h4>השפעת AI על הערכה אקדמית</h4>
+        <p class="bl-text">
+          אם הסטודנט מציג רק את התוצר הסופי — איבדתם את היכולת להעריך. אם הוא מציג <em>תיעוד של תהליך</em>, אתם מעריכים את מה שתמיד אמור היה להיות מוערך מלכתחילה: חשיבה.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── VIDEO 03 — FARRELL ───────── -->
+<section class="video-section" id="v3">
+  <div class="shell">
+    <div class="v-head">
+      <div class="v-num">03</div>
+      <div class="v-meta">
+        <div class="v-kicker">
+          <span>Dublin City University</span>
+          <span class="dot"></span>
+          <span>National Forum, אירלנד</span>
+          <span class="dot"></span>
+          <span>~40 דקות</span>
+        </div>
+        <h2 class="v-title">חבר או אויב? בינה מלאכותית יוצרת והערכה מכילה</h2>
+        <div class="v-speaker">
+          Dr. Orna Farrell <span class="affil">· פרופסור חבר לחינוך, אוניברסיטת Dublin City</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-frame">
+      <a class="lite-yt" href="https://www.youtube.com/watch?v=UigCv-YaTp0" target="_blank" rel="noopener noreferrer" aria-label="צפו בהרצאה של Farrell ב-YouTube (נפתח בלשונית חדשה)">
+        <img src="https://i.ytimg.com/vi/UigCv-YaTp0/maxresdefault.jpg" alt="Friend or foe? Generative AI and inclusive assessment" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/UigCv-YaTp0/hqdefault.jpg'">
+        <span class="lite-yt-play" aria-hidden="true"></span>
+        <span class="lite-yt-label">YouTube · QQI Ireland <span class="ext">↗</span></span>
+        <span class="lite-yt-duration">14:06</span>
+      </a>
+    </div>
+    <div class="v-fallback">
+      <span class="source">לחיצה על הפוסטר תפתח את הסרטון ב-YouTube בלשונית חדשה</span>
+      <a href="https://www.youtube.com/watch?v=UigCv-YaTp0" target="_blank" rel="noopener noreferrer">פתחו עכשיו ↗</a>
+    </div>
+
+    <div class="v-body">
+      <div class="v-summary">
+        <h3>תקציר</h3>
+        <p>
+          הזווית של Farrell ייחודית: היא מסרבת לקבל את הדיכוטומיה "אויב או הזדמנות" כשאלה הרלוונטית. במקום זאת היא קושרת את ה-GenAI לעבודה ארוכת-שנים על <em>הערכה מכילה</em> (inclusive assessment) — תפיסה שמתחילה מהשונות בין לומדים (שפת אם, לקויות למידה, רקע סוציו-אקונומי) ובוחנת איך מערכת ההערכה משרתת את כולם.
+        </p>
+        <p>
+          בהקשר הזה, ה-AI אינו רק בעיה אלא <em>אבחנה</em>: הוא חושף את הפגמים שכבר היו במערכת הערכה אחידה ומיושנת. למרצים בישראל — שמתמודדים בלאו הכי עם הטרוגניות מקצועית, גילאית ולשונית — זו זווית מקומית במיוחד.
+        </p>
+      </div>
+      <aside class="v-bottomline">
+        <div class="bl-label">שורה תחתונה</div>
+        <h4>השפעת AI על הערכה אקדמית</h4>
+        <p class="bl-text">
+          ה-AI לא <em>שבר</em> את ההערכה — הוא חשף שהיא הייתה שבורה כבר קודם. השאלה היא האם נשתמש ברגע הזה לעצב הערכה צודקת יותר, או רק נחבוש את הסימפטומים.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── VIDEO 04 — TEAGUE (PBS) ───────── -->
+<section class="video-section" id="v4">
+  <div class="shell">
+    <div class="v-head">
+      <div class="v-num">04</div>
+      <div class="v-meta">
+        <div class="v-kicker">
+          <span>PBS · Connections with Evan Dawson</span>
+          <span class="dot"></span>
+          <span>דצמבר 2025</span>
+          <span class="dot"></span>
+          <span>~52 דקות</span>
+        </div>
+        <h2 class="v-title">ניסוי לתפוס רמאי AI</h2>
+        <div class="v-speaker">
+          Prof. Will Teague <span class="affil">· Angelo State University, Texas</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://www.pbs.org/video/a-test-to-catch-ai-cheaters-d79zxf/" target="_blank" rel="noopener noreferrer" class="v-frame linkout" aria-label="צפו בסרטון PBS — A test to catch AI cheaters">
+      <div class="play-content">
+        <div class="play-eyebrow">PBS · WXXI Public Television</div>
+        <div class="play-title">"A Test to Catch AI Cheaters" — 40% מכיתה אחת, ומה שזה אומר</div>
+        <div class="play-icon">
+          צפו ב-PBS
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+    <div class="v-fallback">
+      <span class="source">PBS אינו מאפשר הטמעה ישירה — הצפייה דרך אתר הרשת:</span>
+      <a href="https://www.pbs.org/video/a-test-to-catch-ai-cheaters-d79zxf/" target="_blank" rel="noopener noreferrer">פתחו את הראיון ב-PBS ↗</a>
+    </div>
+
+    <div class="v-body">
+      <div class="v-summary">
+        <h3>תקציר</h3>
+        <p>
+          Will Teague, פרופסור לאנגלית באוניברסיטה ציבורית בטקסס, פיתח שיטה לאתר עבודות שנכתבו ב-ChatGPT — ומצא שכמעט <em>40% מהכיתה שלו</em> השתמשו בכלי למרות איסור מפורש. אבל הסיפור המעניין באמת אינו המספר. הוא ההסברים שהסטודנטים נתנו.
+        </p>
+        <p>
+          Teague מטיל את האחריות לא רק על הסטודנטים אלא על מה שההשכלה הגבוהה שכחה לעשות: להסביר <em>למה</em> מישהו צריך לכתוב חיבור בעצמו. אם הערך הנתפס של התואר הוא רק תעודה — קשה להצדיק מאמץ. הקריאה שלו אינה להחזיר את העט והנייר, אלא להחזיר את <em>המשמעות</em>.
+        </p>
+      </div>
+      <aside class="v-bottomline">
+        <div class="bl-label">שורה תחתונה</div>
+        <h4>השפעת AI על הערכה אקדמית</h4>
+        <p class="bl-text">
+          איסור על AI ללא הסבר משכנע <em>למה ללמוד</em> — לא יעבוד. שאלת ההערכה היא בסופו של דבר שאלה של משמעות: מה אנחנו, האוניברסיטה, מבטיחים שיקרה כאן.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── SYNTHESIS ───────── -->
+<section class="synthesis" id="synthesis">
+  <div class="shell">
+    <h2>
+      ארבעה קולות,
+      <em>ארבע זוויות,</em>
+      שיחה אחת.
+    </h2>
+
+    <div class="synthesis-grid">
+      <div class="synthesis-card">
+        <div class="sc-num">01 · Mollick</div>
+        <div class="sc-title">פדגוגיה כשיתוף</div>
+        <p class="sc-body">אל תילחם ב-AI. למד יחד איתו, ולמד את הסטודנטים שלך לעשות אותו דבר — באופן מובחן, ביקורתי, ומסומן.</p>
+      </div>
+      <div class="synthesis-card">
+        <div class="sc-num">02 · Alemán</div>
+        <div class="sc-title">תהליך, לא תוצר</div>
+        <p class="sc-body">העריכו את המסע. שלבי ביניים, החלטות, ניסיון וטעייה — אלו הדברים שהמכונה לא יכולה לדמות אמינות.</p>
+      </div>
+      <div class="synthesis-card">
+        <div class="sc-num">03 · Farrell</div>
+        <div class="sc-title">הזדמנות לצדק</div>
+        <p class="sc-body">ה-AI חשף שהערכה אחידה לא הייתה הוגנת מלכתחילה. זו הזדמנות לעצב מערכת מכילה יותר.</p>
+      </div>
+      <div class="synthesis-card">
+        <div class="sc-num">04 · Teague</div>
+        <div class="sc-title">משמעות לפני אכיפה</div>
+        <p class="sc-body">אם הסטודנטים לא מבינים למה הלמידה חשובה — שום שיטת אכיפה לא תציל את ההערכה.</p>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid rgba(251,248,241,0.2); padding-top: 36px; max-width: 70ch;">
+      <div style="font-family: var(--latin); font-size: 12px; letter-spacing: 0.18em; color: #E8A28F; margin-bottom: 14px; text-transform: uppercase;">המכנה המשותף</div>
+      <p style="font-family: var(--serif); font-size: clamp(20px, 2.2vw, 28px); line-height: 1.45; font-weight: 500; color: var(--paper);">
+        אף אחד מארבעת המומחים <em style="color:#E8A28F; font-style:normal;">לא מציע לאסור AI</em>. כולם מציעים שעיצוב ההערכה — לא הסטודנט — הוא מה שצריך להשתנות. השאלה היא לא <em style="color:#E8A28F; font-style:normal;">אם</em>, אלא <em style="color:#E8A28F; font-style:normal;">איך, מתי, ועם איזו תמיכה</em>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── CLOSING ───────── -->
+<section class="cta-section" id="cta">
+  <div class="shell">
+    <div class="cta-eyebrow">HIT · M.A. Learning Technologies</div>
+    <h2>
+      סקרנים לדעת איך
+      <em>ניישם</em>
+      בקורס שלכם?
+    </h2>
+    <div class="cta-tease">
+      <span class="cta-tease-line"></span>
+      <span class="cta-tease-text">פרטים בהמשך</span>
+      <span class="cta-tease-line"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── FOOTER ───────── -->
+<footer>
+  <div class="shell footer-inner">
+    <div class="footer-credit">
+      התוכנית למוסמך בטכנולוגיות למידה, HIT — מכון טכנולוגי חולון
+    </div>
+    <div class="footer-meta">
+      © 2026 · אוצרות ועיצוב: ד״ר ערן גל
+    </div>
+  </div>
+</footer>
+
+<!-- ───────── JS — rail active state + reveal animations ───────── -->
+<script>
+  // Side rail: highlight active section as you scroll
+  const sections = document.querySelectorAll('section[id]');
+  const railLinks = document.querySelectorAll('.rail a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        railLinks.forEach(a => {
+          a.classList.toggle('active', a.dataset.section === id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Reveal animations on scroll
+  const revealEls = document.querySelectorAll('.v-head, .v-frame, .v-body, .hero-meta, .scroll-cue, .synthesis-card, .cta-section h2, .cta-tease');
+  revealEls.forEach(el => el.classList.add('reveal'));
+
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => revealObs.observe(el));
+
+</script>
+
+</body>
+</html>
